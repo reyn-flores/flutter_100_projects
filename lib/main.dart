@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_100_projects/custom_toolbar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,6 +31,31 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: const Text(
+          '100 days of Flutter',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: false,
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.more_horiz,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // Do nothing
+            },
+          ),
+        ],
+      ),
+      bottomNavigationBar: const CustomToolbar(),
+    );
   }
 }
