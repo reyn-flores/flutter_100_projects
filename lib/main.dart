@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_100_projects/location_list_item.dart';
+import 'package:flutter_100_projects/locations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,6 +32,28 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: const Text(
+            'Scrolling Parallax',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              for (final location in locations) ...[
+                LocationListItem(imageUrl: location)
+              ]
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
