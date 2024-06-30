@@ -4,7 +4,12 @@ import 'package:flutter_100_projects/tab_item.dart';
 import 'package:rive/rive.dart';
 
 class CustomToolbar extends StatefulWidget {
-  const CustomToolbar({super.key});
+  final Function(int index) onIndexChanged;
+
+  const CustomToolbar({
+    super.key,
+    required this.onIndexChanged,
+  });
 
   @override
   State<CustomToolbar> createState() => _CustomToolbarState();
@@ -107,5 +112,6 @@ class _CustomToolbarState extends State<CustomToolbar> {
     Future.delayed(const Duration(milliseconds: 1000), () {
       TabItem.tabItems[index].status!.change(false);
     });
+    widget.onIndexChanged(index);
   }
 }
