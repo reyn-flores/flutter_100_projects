@@ -13,15 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: BlocProvider(
-        create: (_) => ShoppingCartCubit(),
-        child: const MyHomePage(),
+    return BlocProvider(
+      create: (_) => ShoppingCartCubit(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const MyHomePage(),
       ),
     );
   }
@@ -46,14 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
           body: ListView.separated(
             padding: const EdgeInsets.all(16),
             itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  context
-                      .read<ShoppingCartCubit>()
-                      .addToCart(mockProductList[index]);
-                },
-                child: ProductItem(product: mockProductList[index]),
-              );
+              return ProductItem(product: mockProductList[index]);
             },
             separatorBuilder: (context, index) {
               return const SizedBox(height: 16);
