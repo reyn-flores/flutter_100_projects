@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_android/image_picker_android.dart';
+import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,8 +33,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final ImagePicker _picker = ImagePicker();
+  late ImagePicker _picker;
   List<File> selectedImages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    final ImagePickerPlatform imagePickerImplementation =
+        ImagePickerPlatform.instance;
+    if (imagePickerImplementation is ImagePickerAndroid) {
+      imagePickerImplementation.useAndroidPhotoPicker = true;
+    }
+    _picker = ImagePicker();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future getImages() async {
     try {
-      final List<XFile> pickedFileList = await _picker.pickMultiImage();
+      final List<XFile> pickedFileList = await _picker.pickMultipleMedia();
       if (pickedFileList.isEmpty) {
         _showSnackBar('Nothing was selected');
         return;
